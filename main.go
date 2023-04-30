@@ -9,11 +9,6 @@ import (
 )
 
 func main() {
-	//Operation, OperandOne, OperandTwo := InputUser()
-	// Указатели для возвращаемых значений функции InputUser
-	//var Operat *string = &Operation
-	//var OperOne *string = &OperandOne
-	//var OperTwo *string = &OperandTwo
 	for {
 		Input := InputUser()
 		Err := func(str []string) {
@@ -25,7 +20,6 @@ func main() {
 
 		}
 		Err(Input)
-
 	}
 
 }
@@ -45,7 +39,11 @@ func InputUser() (str []string) {
 func CheckErr(str []string) (err string) {
 	var inpUser *[]string = &str      //Указатель на слайс ввода пользователя
 	var lenInUser int = len(*inpUser) //Количесво элементов в слайсе
-	var lenOperation int              //Количество операций в примере
+	if lenInUser <= 2 {
+		return "Ошибка, так как строка не является математической операцией."
+	}
+
+	var lenOperation int //Количество операций в примере
 	var listOperation []string = []string{"+", "-", "*", "/"}
 	var system int = CheckSystem(*inpUser) //Система счисления
 	var systems *int = &system             //Указатель на систему счисления
@@ -59,10 +57,7 @@ func CheckErr(str []string) (err string) {
 		}
 	} // Подсчет количества операций в вводе пользователя
 
-	if lenInUser <= 2 {
-		return "Ошибка, так как строка не является математической операцией."
-
-	} else if lenOperation > 1 {
+	if lenOperation > 1 {
 		return "Ошибка, так как формат математической операции не удовлетворяет заданию — два операнда и один оператор (+, -, /, *)."
 	} else if *systems == 3 {
 		return "Ошибка, так как используются одновременно разные системы счисления."
